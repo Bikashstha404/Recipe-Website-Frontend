@@ -1,0 +1,13 @@
+.body {
+  width: 100vw;
+  height: 90vh;
+}
+
+.error-logo-container {
+  display: flex;
+  justify-content: center;
+}
+
+.error-logo {
+  width: 20%;  
+}
