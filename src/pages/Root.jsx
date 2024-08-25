@@ -11,7 +11,7 @@ function Root() {
                 <Link to="/">Home</Link>
               </li>
               <li>
-                <Link to="/signup">Sign Up</Link>
+                <Link to="/signUp">Sign Up</Link>
               </li>
               <li>
                 <Link to="/login">Log In</Link>
@@ -22,9 +22,11 @@ function Root() {
             </ul>
           </nav>
         </header>
+        <Outlet>
         <main>
-          <Outlet /> {/* This renders the child routes */}
+          <h1>Hello World</h1>
         </main>
+        </Outlet>
         <footer>
           <p>&copy; 2024 Recipe Management System</p>
         </footer>
