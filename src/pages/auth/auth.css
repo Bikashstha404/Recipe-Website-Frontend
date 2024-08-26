@@ -1,0 +1,15 @@
+.background {
+    background-image: url("authBackground.jpg");
+    background-size: cover;
+    min-height: 100vh;
+    /* min-width: 100vw; */
+  }
+  
+  .container {
+    display: flex;
+    justify-content: right;
+    align-items: center;
+    min-height: 100vh;
+    margin-right: 20vw;
+  }
+  
