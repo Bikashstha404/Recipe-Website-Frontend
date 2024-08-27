@@ -1,15 +1,35 @@
 .background {
-    background-image: url("authBackground.jpg");
-    background-size: cover;
-    min-height: 100vh;
-    /* min-width: 100vw; */
-  }
-  
-  .container {
-    display: flex;
-    justify-content: right;
-    align-items: center;
-    min-height: 100vh;
-    margin-right: 20vw;
-  }
-  
+  background-image: url("authBackground.jpg");
+  background-size: cover;
+  min-height: 100vh;
+  /* min-width: 100vw; */
+}
+
+.container {
+  display: flex;
+  justify-content: right;
+  align-items: center;
+  min-height: 100vh;
+  margin-right: 20vw;
+}
+
+.formBox {
+  /* background: linear-gradient(to top, #ffe5b4 50%, #ffab73 90%) no-repeat; */
+  /* background: linear-gradient(to top, #ffecd2 30%, #ffab73 60%, #ff9472 80%, #f2709c 100%) no-repeat; */
+  background: linear-gradient(
+      to top,
+      #fff5e1 10%,
+      #ffecd2 25%,
+      #ffc3a0 40%,
+      #ff9a8b 55%,
+      #ff6f61 75%,
+      #f76b8a 90%,
+      #f8a1d1 100%
+    )
+    no-repeat;
+
+  /* background-image: url("containerBackground.jpg");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat; */
+}

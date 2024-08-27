@@ -83,7 +83,7 @@ export default function SignUp() {
   return (
     <main className="background">
     <div className="container">
-      <div className="bg-white p-8 rounded-lg shadow-lg max-w-md w-full">
+      <div className="formBox bg-white p-8 rounded-lg shadow-lg max-w-md w-full">
         <h2 className="text-2xl font-bold text-center mb-4">Sign Up</h2>
         <form>
           <div className="mb-4">

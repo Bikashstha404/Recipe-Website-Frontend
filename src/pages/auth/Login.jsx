@@ -15,7 +15,7 @@ export default function Login() {
   const navigate = useNavigate();
 
   const [type, setType] = useState("password");
-  const [isText, setIsText] = useState("false");
+  const [isText, setIsText] = useState(false);
   const hideShowPass = () => {
     setIsText(!isText);
     setType(isText ? "password" : "text");
@@ -77,7 +77,7 @@ export default function Login() {
   const handleSubmit = async (e) => {
     e.preventDefault(); //Stops form from being submit
     if (validate()) {
-      if (formData.password !== "correctPassword") {
+      if (formData.password !== "admin123") {
         setErrors((prevErrors) => ({ ...prevErrors, password: "Incorrect Password" }));
         setShowForgotPassword(true);
 
@@ -95,7 +95,7 @@ export default function Login() {
     <>
       <main className="background">
         <div className="container">
-          <div className="bg-white p-8 rounded-lg shadow-lg max-w-md w-full">
+          <div className="formBox bg-white p-8 rounded-lg shadow-lg max-w-md w-full">
             <h2 className="text-2xl font-bold text-center mb-6">Login</h2>
             <form>
               <div className="mb-4">
