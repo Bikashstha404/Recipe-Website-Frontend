@@ -1,6 +1,6 @@
 .truncate-3-lines {
-display: -webkit-box;   /* flexbox layout for text */
-  -webkit-line-clamp: 3;  /* Limit to 3 lines */
+  display: -webkit-box; /* flexbox layout for text */
+  -webkit-line-clamp: 3; /* Limit to 3 lines */
   -webkit-box-orient: vertical; /* Specifies direction */
   overflow: hidden;
   text-overflow: ellipsis; /*Adds an ellipsis (...) to the end of the truncated text.*/
