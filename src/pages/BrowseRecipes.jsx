@@ -24,11 +24,11 @@ export default function BrowseRecipes() {
                   Category:{" "}
                   <span className="font-medium">Entrees, Sandwiches</span>
                 </p>
-                <p className="mt-2 text-xs text-justify">
+                <p className="mt-2 text-xs text-justify truncate-3-lines">
                   This juicy, flavorful burger is made with high-quality beef,
                   caramelized onions, fresh lettuce, and a special homemade
                   sauce, all served in a toasted bun. Perfect for a satisfying
-                  meal!
+                  meal! This is just a checkup if the text overflows or not.
                 </p>
                 <div className="flex justify-end mt-2">
                   <button className="px-3 py-1 text-xs font-semibold text-white bg-orange-400 rounded-lg hover:bg-orange-500 transition-colors">
