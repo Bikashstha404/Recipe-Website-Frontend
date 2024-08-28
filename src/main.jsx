@@ -1,37 +1,45 @@
-import { StrictMode } from 'react'
-import { createRoot } from 'react-dom/client'
-import './index.css'
-import { RouterProvider, createBrowserRouter } from 'react-router-dom'
-import Root from './pages/Root'
-import ErrorPageNotFound from './pages/Error/Error'
-import SignUp from './pages/auth/SignUp'
-import Login from './pages/auth/Login'
-import BrowseRecipes from './pages/BrowseRecipes'
+import { StrictMode } from "react";
+import { createRoot } from "react-dom/client";
+import "./index.css";
+import { RouterProvider, createBrowserRouter } from "react-router-dom";
+import Root from "./pages/Root";
+import ErrorPageNotFound from "./pages/Error/Error";
+import SignUp from "./pages/auth/SignUp";
+import Login from "./pages/auth/Login";
+import BrowseRecipes from "./pages/BrowseRecipes";
+import SimpleForm from "./pages/SimpleForm";
+import AddRecipes from "./pages/AddRecipes";
+import UseForm from "./pages/UserForm";
 
 const router = createBrowserRouter([
   {
-    path:'/', 
-    element: <Root />, 
+    path: "/",
+    element: <Root />,
     errorElement: <ErrorPageNotFound />,
     children: [
-    {
-      path:'/browseRecipes',
-      element: <BrowseRecipes />
-      }
-    ]},
+      {
+        path: "/browseRecipes",
+        element: <BrowseRecipes />,
+      },
+      {
+        path: "/addRecipes",
+        element: <AddRecipes />
+      },
+    ],
+  },
   {
-    path:'/signUp',
+    path: "/signUp",
     element: <SignUp />,
     errorElement: <ErrorPageNotFound />,
   },
   {
-    path:'/login',
+    path: "/login",
     element: <Login />,
-    errorElement: <ErrorPageNotFound />
-  }
-])
-createRoot(document.getElementById('root')).render(
+    errorElement: <ErrorPageNotFound />,
+  },
+]);
+createRoot(document.getElementById("root")).render(
   <StrictMode>
     <RouterProvider router={router} />
-  </StrictMode>,
-)
+  </StrictMode>
+);

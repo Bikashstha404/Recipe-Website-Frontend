@@ -16,7 +16,7 @@
 .formBox {
   /* background: linear-gradient(to top, #ffe5b4 50%, #ffab73 90%) no-repeat; */
   /* background: linear-gradient(to top, #ffecd2 30%, #ffab73 60%, #ff9472 80%, #f2709c 100%) no-repeat; */
-  background: linear-gradient(
+  /* background: linear-gradient(
       to top,
       #fff5e1 10%,
       #ffecd2 25%,
@@ -26,10 +26,10 @@
       #f76b8a 90%,
       #f8a1d1 100%
     )
-    no-repeat;
+    no-repeat; */
 
-  /* background-image: url("containerBackground.jpg");
+  background-image: url("containerBackground.jpg");
   background-size: cover;
   background-position: center;
-  background-repeat: no-repeat; */
+  background-repeat: no-repeat;
 }

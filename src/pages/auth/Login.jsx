@@ -86,7 +86,7 @@ export default function Login() {
         },5000)
       } else {
         console.log("Logging in with", formData);
-        navigate("/browseRecipes");
+        navigate("/");
       }
     }
   };

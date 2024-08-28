@@ -19,13 +19,16 @@ export default function NavBar() {
     navigate("/browseRecipes");
   };
 
+  const handleAddRecipes = () => {
+    navigate("/addRecipes");
+  };
   const handleLogout = () => {
     navigate("/login");
   };
 
   return (
     <>
-      <aside className="w-72 bg-gradient-to-b from-gray-800 to-gray-700 text-white flex flex-col items-center py-6  shadow-xl">
+      <aside className="w-60 bg-gradient-to-b from-gray-800 to-gray-700 text-white flex flex-col items-center py-6  shadow-xl">
         <div className="flex items-center mb-8 px-4 w-full">
           <img
             src={RecipeLogo}
@@ -55,7 +58,10 @@ export default function NavBar() {
           >
             Browse Recipes
           </button>
-          <button className="bg-gray-700 hover:bg-gray-600 py-3 w-full text-left pl-6">
+          <button
+            className="bg-gray-700 hover:bg-gray-600 py-3 w-full text-left pl-6"
+            onClick={handleAddRecipes}
+          >
             Browse Meal Plans
           </button>
           <button className="bg-gray-700 hover:bg-gray-600 py-3 w-full text-left pl-6">
@@ -70,14 +76,17 @@ export default function NavBar() {
               onClick={toggleDropdown}
             >
               Settings
-              <FontAwesomeIcon icon={faCaretDown} className="ml-28" />
+              <FontAwesomeIcon icon={faCaretDown} className="ml-32" />
             </button>
             {isDropdownOpen && (
               <div className="flex flex-col w-full bg-gray-700">
-                <button className="w-full text-left bg-gray-700 hover:bg-gray-600 py-2 pl-10">
+                <button className="w-full text-left bg-teal-700 hover:bg-white-600 py-2 pl-10">
                   Edit Profile
                 </button>
-                <button className="w-full text-left bg-red-600 hover:bg-red-500 py-2 pl-10" onClick={handleLogout}>
+                <button
+                  className="w-full text-left bg-red-600 hover:bg-red-500 py-2 pl-10"
+                  onClick={handleLogout}
+                >
                   Logout
                 </button>
               </div>

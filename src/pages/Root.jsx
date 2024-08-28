@@ -8,11 +8,9 @@ function Root() {
     <div className="flex h-screen">
       <NavBar />
       <div className="flex flex-col flex-grow">
-        <div className="flex-grow overflow-auto">
+        <div className="flex-grow overflow-auto ">
           <Outlet />
         </div>
-
-        {/* Footer */}
         <Footer />
       </div>
     </div>
