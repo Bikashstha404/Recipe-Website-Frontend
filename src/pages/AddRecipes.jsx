@@ -179,8 +179,10 @@ export default function AddRecipes() {
           </label>
 
           {ingredients.map((ingredient, index) => (
-            <div key={index} className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-4 items-center">
-                
+            <div
+              key={index}
+              className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-4 items-center"
+            >
               <input
                 type="text"
                 placeholder="Quantity"
@@ -210,6 +212,33 @@ export default function AddRecipes() {
           >
             <FontAwesomeIcon icon={faPlus} />
           </button>
+
+          {/* <div style={{position: 'relative', bottom: '2vw', left:'62vw' }}>
+          <label className="block text-gray-700 text-sm font-bold mb-2">
+            Preparation
+          </label>
+            <textarea
+              id="preparation"
+              className="shadow appearance-none border rounded w-128 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              placeholder="Enter preparation steps"
+              rows="6"
+            ></textarea>
+
+            <div className="preparationBox flex justify-end space-x-4 mb-6">
+              <button
+                type="button"
+                className="bg-gray-500 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+              >
+                Discard
+              </button>
+              <button
+                type="submit"
+                className="bg-blue-500 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+              >
+                Add
+              </button>
+            </div>
+          </div> */}
         </div>
       </form>
     </main>

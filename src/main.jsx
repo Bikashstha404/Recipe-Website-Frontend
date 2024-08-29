@@ -7,9 +7,10 @@ import ErrorPageNotFound from "./pages/Error/Error";
 import SignUp from "./pages/auth/SignUp";
 import Login from "./pages/auth/Login";
 import BrowseRecipes from "./pages/BrowseRecipes";
-import SimpleForm from "./pages/SimpleForm";
+import SimpleForm from "./pages/Classes/SimpleForm";
 import AddRecipes from "./pages/AddRecipes";
-import UseForm from "./pages/UserForm";
+import UseForm from "./pages/Classes/UserForm";
+import Data from "./pages/Classes/Data";
 
 const router = createBrowserRouter([
   {
@@ -24,6 +25,10 @@ const router = createBrowserRouter([
       {
         path: "/addRecipes",
         element: <AddRecipes />
+      },
+      {
+        path: "/data",
+        element: <Data />
       },
     ],
   },
