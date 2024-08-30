@@ -9,8 +9,7 @@ import Login from "./pages/auth/Login";
 import BrowseRecipes from "./pages/BrowseRecipes";
 import SimpleForm from "./pages/Classes/SimpleForm";
 import AddRecipes from "./pages/AddRecipes";
-import UseForm from "./pages/Classes/UserForm";
-import Data from "./pages/Classes/Data";
+import EditProfile from "./pages/EditProfile";
 
 const router = createBrowserRouter([
   {
@@ -27,8 +26,8 @@ const router = createBrowserRouter([
         element: <AddRecipes />
       },
       {
-        path: "/data",
-        element: <Data />
+        path: "/editProfile",
+        element: <EditProfile />
       },
     ],
   },

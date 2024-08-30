@@ -26,6 +26,9 @@ export default function NavBar() {
     navigate("/login");
   };
 
+  const handleEdit = () =>{
+    navigate("/editProfile");
+  }
   return (
     <>
       <aside className="w-60 bg-gradient-to-b from-gray-800 to-gray-700 text-white flex flex-col items-center py-6  shadow-xl">
@@ -62,7 +65,7 @@ export default function NavBar() {
             className="bg-gray-700 hover:bg-gray-600 py-3 w-full text-left pl-6"
             onClick={handleAddRecipes}
           >
-            Browse Meal Plans
+            Add Recipes
           </button>
           <button className="bg-gray-700 hover:bg-gray-600 py-3 w-full text-left pl-6">
             Saved Recipes
@@ -80,7 +83,7 @@ export default function NavBar() {
             </button>
             {isDropdownOpen && (
               <div className="flex flex-col w-full bg-gray-700">
-                <button className="w-full text-left bg-teal-700 hover:bg-white-600 py-2 pl-10">
+                <button className="w-full text-left bg-teal-700 hover:bg-white-600 py-2 pl-10" onClick={handleEdit}>
                   Edit Profile
                 </button>
                 <button

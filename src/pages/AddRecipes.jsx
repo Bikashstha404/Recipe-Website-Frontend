@@ -213,18 +213,19 @@ export default function AddRecipes() {
             <FontAwesomeIcon icon={faPlus} />
           </button>
 
-          {/* <div style={{position: 'relative', bottom: '2vw', left:'62vw' }}>
-          <label className="block text-gray-700 text-sm font-bold mb-2">
-            Preparation
-          </label>
-            <textarea
-              id="preparation"
-              className="shadow appearance-none border rounded w-128 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-              placeholder="Enter preparation steps"
-              rows="6"
-            ></textarea>
-
-            <div className="preparationBox flex justify-end space-x-4 mb-6">
+          <div>
+            <div style={{ position: "relative", bottom: "41vh", left: "44vw" }}>
+              <label className="block text-gray-700 text-sm font-bold mb-2">
+                Preparation
+              </label>
+              <textarea
+                id="preparation"
+                className="shadow appearance-none border rounded w-2/5 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                placeholder="Enter preparation steps"
+                rows="10"
+              ></textarea>
+            </div>
+            <div className="preparationBox flex justify-end space-x-4 mr-16" style={{position: 'relative', bottom: '41vh'}}>
               <button
                 type="button"
                 className="bg-gray-500 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
@@ -238,68 +239,9 @@ export default function AddRecipes() {
                 Add
               </button>
             </div>
-          </div> */}
+          </div>
         </div>
       </form>
     </main>
-
-    // <div className="max-w-4xl mx-auto p-6 bg-white shadow-md rounded-lg">
-    //   <h1 className="text-3xl font-bold mb-6">Add Recipe</h1>
-    //   <form>
-    //     {/* Recipe Title and Image Upload */}
-
-    //     </div>
-
-    //     {/* Description */}
-
-    //     {/* Prep Time, Calories, Category */}
-
-    //       <div>
-    //         <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="category">
-    //           Category
-    //         </label>
-    //         <select
-    //           id="category"
-    //           className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-    //         >
-    //           <option value="appetizer">Appetizer</option>
-    //           <option value="main-course">Main Course</option>
-    //           <option value="dessert">Dessert</option>
-    //         </select>
-    //       </div>
-    //     </div>
-
-    //     {/* Ingredients */}
-
-    //     {/* Preparation Steps */}
-    //     <div className="mb-6">
-    //       <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="preparation">
-    //         Preparation
-    //       </label>
-    //       <textarea
-    //         id="preparation"
-    //         className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-    //         placeholder="Enter preparation steps"
-    //         rows="4"
-    //       ></textarea>
-    //     </div>
-
-    //     {/* Buttons */}
-    //     <div className="flex justify-end space-x-4 mt-6">
-    //       <button
-    //         type="button"
-    //         className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-    //       >
-    //         Discard
-    //       </button>
-    //       <button
-    //         type="submit"
-    //         className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-    //       >
-    //         Add
-    //       </button>
-    //     </div>
-    //   </form>
-    // </div>
   );
 }
