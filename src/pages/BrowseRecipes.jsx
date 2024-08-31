@@ -4,7 +4,7 @@ import Food from "../assets/Burger.webp";
 export default function BrowseRecipes() {
   return (
     <main className="mx-auto pt-5 pb-8 w-full max-w-7xl">
-      <h2 className="text-4xl font-bold mb-6 ml-11 underline">Recipes</h2>
+      <h2 className="text-4xl font-bold mb-8 ml-11 underline">Recipes</h2>
       <div className="flex flex-col container mx-auto pt-5 pb-8 w-full">
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 px-4">
           {[...Array(9)].map((_, i) => (

@@ -29,6 +29,10 @@ export default function NavBar() {
   const handleEdit = () =>{
     navigate("/editProfile");
   }
+
+  const handleShowRecipe = () => {
+    navigate("/showRecipes")
+  }
   return (
     <>
       <aside className="w-60 bg-gradient-to-b from-gray-800 to-gray-700 text-white flex flex-col items-center py-6  shadow-xl">
@@ -67,8 +71,8 @@ export default function NavBar() {
           >
             Add Recipes
           </button>
-          <button className="bg-gray-700 hover:bg-gray-600 py-3 w-full text-left pl-6">
-            Saved Recipes
+          <button className="bg-gray-700 hover:bg-gray-600 py-3 w-full text-left pl-6" onClick={handleShowRecipe}>
+            Show Recipes
           </button>
           <button className="bg-gray-700 hover:bg-gray-600 py-3 w-full text-left pl-6">
             Saved Meal Plans

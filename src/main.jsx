@@ -10,6 +10,7 @@ import BrowseRecipes from "./pages/BrowseRecipes";
 import SimpleForm from "./pages/Classes/SimpleForm";
 import AddRecipes from "./pages/AddRecipes";
 import EditProfile from "./pages/EditProfile";
+import ShowRecipes from "./pages/ShowRecipes";
 
 const router = createBrowserRouter([
   {
@@ -28,6 +29,10 @@ const router = createBrowserRouter([
       {
         path: "/editProfile",
         element: <EditProfile />
+      },
+      {
+        path: "/showRecipes",
+        element: <ShowRecipes />
       },
     ],
   },
