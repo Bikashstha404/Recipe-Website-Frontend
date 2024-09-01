@@ -72,7 +72,7 @@ export default function AddRecipes() {
                 className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline ml-11"
                 placeholder="Enter recipe description"
                 rows="6"
-                style={{ height: "150px", overflowY: "auto" }}
+                style={{ height: "150px", overflow: "auto" }}
               ></textarea>
             </div>
           </div>

@@ -11,6 +11,8 @@ import SimpleForm from "./pages/Classes/SimpleForm";
 import AddRecipes from "./pages/AddRecipes";
 import EditProfile from "./pages/EditProfile";
 import ShowRecipes from "./pages/ShowRecipes";
+import BrowseMealPlans from "./pages/BrowseMealPlans";
+// import BrowseMealPlans from "./pages/BrowseMealPlans";
 
 const router = createBrowserRouter([
   {
@@ -24,16 +26,24 @@ const router = createBrowserRouter([
       },
       {
         path: "/addRecipes",
-        element: <AddRecipes />
+        element: <AddRecipes />,
       },
       {
         path: "/editProfile",
-        element: <EditProfile />
+        element: <EditProfile />,
       },
       {
         path: "/showRecipes",
-        element: <ShowRecipes />
+        element: <ShowRecipes />,
       },
+      {
+        path: "/browseMealPlans",
+        element: <BrowseMealPlans />
+      },
+      // {
+      //   path: "/seeMealPlans",
+      //   element: <h1>Meal plans</h1>
+      // },
     ],
   },
   {

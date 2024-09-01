@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faLock } from "@fortawesome/free-solid-svg-icons";
 import { useNavigate } from "react-router-dom";
 
-const EditProfile = () => {
+export default function EditProfile(){
   const navigate = useNavigate();
   const handleUpdate = () => {
     navigate("../browseRecipes");
@@ -95,5 +95,3 @@ const EditProfile = () => {
     </main>
   );
 };
-
-export default EditProfile;

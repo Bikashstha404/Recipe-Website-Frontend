@@ -33,6 +33,14 @@ export default function NavBar() {
   const handleShowRecipe = () => {
     navigate("/showRecipes")
   }
+
+  const handleBrowseMealPlans = () =>{
+    navigate("/browseMealPlans")
+  }
+
+  const handleSeeMealPlans =() =>{
+    navigate("/seeMealPlans")
+  }
   return (
     <>
       <aside className="w-60 bg-gradient-to-b from-gray-800 to-gray-700 text-white flex flex-col items-center py-6  shadow-xl">
@@ -74,8 +82,11 @@ export default function NavBar() {
           <button className="bg-gray-700 hover:bg-gray-600 py-3 w-full text-left pl-6" onClick={handleShowRecipe}>
             Show Recipes
           </button>
-          <button className="bg-gray-700 hover:bg-gray-600 py-3 w-full text-left pl-6">
-            Saved Meal Plans
+          <button className="bg-gray-700 hover:bg-gray-600 py-3 w-full text-left pl-6" onClick={handleBrowseMealPlans}>
+            Browse Meal Plans
+          </button>
+          <button className="bg-gray-700 hover:bg-gray-600 py-3 w-full text-left pl-6" onClick={handleSeeMealPlans}>
+            See Meal Plans
           </button>
           <div className="relative w-full">
             <button
