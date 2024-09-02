@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 import { faTimes } from "@fortawesome/free-solid-svg-icons";
-import './auth.css'
+import "./auth.css";
 
 export default function Login() {
   const [formData, setFormData] = useState({
@@ -35,13 +35,13 @@ export default function Login() {
     if (!formData.password) newErrors.password = "Password is required";
 
     setErrors(newErrors);
-    setTimeout(()=>{
-      setErrors((prevErrors) => ({ 
-        ...prevErrors, 
+    setTimeout(() => {
+      setErrors((prevErrors) => ({
+        ...prevErrors,
         email: "",
-        password: "" 
+        password: "",
       }));
-    },5000)
+    }, 5000);
     return Object.keys(newErrors).length === 0;
   };
 
@@ -64,11 +64,11 @@ export default function Login() {
   };
 
   const handleForgotPasswordEmail = (e) => {
-    console.timeLog(e.target)
+    console.timeLog(e.target);
     const email = e.target.value;
     setForgotPasswordEmail(email);
   };
-  
+
   const handleCloseForgotPasswordForm = () => {
     setShowForgotPasswordForm(false);
     setForgotPasswordEmail("");
@@ -77,16 +77,31 @@ export default function Login() {
   const handleSubmit = async (e) => {
     e.preventDefault(); //Stops form from being submit
     if (validate()) {
-      if (formData.password !== "admin123") {
-        setErrors((prevErrors) => ({ ...prevErrors, password: "Incorrect Password" }));
-        setShowForgotPassword(true);
+      try {
+        const response = await fetch("http://localhost:5289/api/Auth/Login", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(formData),
+        });
 
-        setTimeout(()=>{
-          setErrors((prevErrors) => ({ ...prevErrors, password: "" }));
-        },5000)
-      } else {
-        console.log("Logging in with", formData);
-        navigate("/");
+        const data = await response.json();
+        console.log(data);
+        if (response.ok) {
+          navigate("/");
+        } else {
+          setErrors((prevErrors) => ({
+            ...prevErrors,
+            password: data.message,
+          }));
+          setShowForgotPassword(true);
+          setTimeout(() => {
+            setErrors((prevErrors) => ({ ...prevErrors, password: "" }));
+          }, 5000);
+        }
+      } catch (error) {
+        console.error("There was an error posting the data!", error);
       }
     }
   };

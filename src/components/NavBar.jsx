@@ -73,6 +73,9 @@ export default function NavBar() {
           >
             Browse Recipes
           </button>
+          <button className="bg-gray-700 hover:bg-gray-600 py-3 w-full text-left pl-6" onClick={handleBrowseMealPlans}>
+            Browse Meal Plans
+          </button>
           <button
             className="bg-gray-700 hover:bg-gray-600 py-3 w-full text-left pl-6"
             onClick={handleAddRecipes}
@@ -81,9 +84,6 @@ export default function NavBar() {
           </button>
           <button className="bg-gray-700 hover:bg-gray-600 py-3 w-full text-left pl-6" onClick={handleShowRecipe}>
             Show Recipes
-          </button>
-          <button className="bg-gray-700 hover:bg-gray-600 py-3 w-full text-left pl-6" onClick={handleBrowseMealPlans}>
-            Browse Meal Plans
           </button>
           <button className="bg-gray-700 hover:bg-gray-600 py-3 w-full text-left pl-6" onClick={handleSeeMealPlans}>
             See Meal Plans

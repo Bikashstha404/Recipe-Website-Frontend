@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
+import axios from "axios";
 import './auth.css'
 
 export default function SignUp() {
@@ -79,7 +80,7 @@ export default function SignUp() {
       navigate("/login");
     }
   };
-
+  
   return (
     <main className="background">
     <div className="container">

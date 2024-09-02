@@ -12,7 +12,7 @@ import AddRecipes from "./pages/AddRecipes";
 import EditProfile from "./pages/EditProfile";
 import ShowRecipes from "./pages/ShowRecipes";
 import BrowseMealPlans from "./pages/BrowseMealPlans";
-// import BrowseMealPlans from "./pages/BrowseMealPlans";
+import ShowMealPlans from "./pages/ShowMealPlans";
 
 const router = createBrowserRouter([
   {
@@ -40,10 +40,10 @@ const router = createBrowserRouter([
         path: "/browseMealPlans",
         element: <BrowseMealPlans />
       },
-      // {
-      //   path: "/seeMealPlans",
-      //   element: <h1>Meal plans</h1>
-      // },
+      {
+        path: "/seeMealPlans",
+        element: <ShowMealPlans />
+      },
     ],
   },
   {
