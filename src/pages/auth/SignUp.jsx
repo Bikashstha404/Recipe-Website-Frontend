@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 import axios from "axios";
-import './auth.css'
+import "./auth.css";
 
 export default function SignUp() {
   const [formData, setFormData] = useState({
@@ -46,9 +46,15 @@ export default function SignUp() {
 
   const validate = () => {
     const newErrors = {};
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
     if (!formData.username) newErrors.username = "Username is required";
     if (!formData.role) newErrors.role = "Role is required";
-    if (!formData.email) newErrors.email = "Email is required";
+    if (!formData.email) {
+      newErrors.email = "Email is required";
+    } else if (!emailRegex.test(formData.email)) {
+      newErrors.email = "Invalid email format";
+    }
     if (!formData.password) newErrors.password = "Password is required";
     if (formData.password !== formData.confirmPassword)
       newErrors.confirmPassword = "Passwords do not match";
@@ -56,16 +62,16 @@ export default function SignUp() {
       newErrors.confirmPassword = "Confirm Password is required";
 
     setErrors(newErrors);
-    setTimeout(()=>{
-      setErrors((prevErrors) => ({ 
-        ...prevErrors, 
+    setTimeout(() => {
+      setErrors((prevErrors) => ({
+        ...prevErrors,
         username: "",
         role: "",
         email: "",
         password: "",
-        confirmPassword: "", 
+        confirmPassword: "",
       }));
-    },5000)
+    }, 5000);
     return Object.keys(newErrors).length === 0;
   };
 
@@ -76,132 +82,174 @@ export default function SignUp() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (validate()) {
+      formData.role = parseInt(formData.role, 10);
       console.log("Signing up with", formData);
-      navigate("/login");
+
+      try {
+        const response = await fetch("http://localhost:5289/api/Auth/SignUp", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(formData),
+        });
+
+        const data = await response.json();
+        console.log(data);
+        if (response.ok) {
+          navigate("/login");
+        } else {
+          console.log("hello world");
+          setErrors((prevErrors) => ({
+            ...prevErrors,
+            backendError: data.message || "Something went wrong",
+          }));
+          setTimeout(() => {
+            setErrors((prevErrors) => ({ ...prevErrors, backendError: "" }));
+          }, 5000);
+        }
+      } catch (error) {
+        console.error("There was an error posting the data!", error);
+      }
     }
   };
-  
+
   return (
     <main className="background">
-    <div className="container">
-      <div className="formBox bg-white p-8 rounded-lg shadow-lg max-w-md w-full">
-        <h2 className="text-2xl font-bold text-center mb-4">Sign Up</h2>
-        <form>
-          <div className="mb-4">
-            <input
-              type="text"
-              name="username"
-              className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-              placeholder="Username"
-              value={formData.username}
-              onChange={handleChange}
-              required
-            />
-            {errors.username && (
-              <small className="text-red-500">{errors.username}</small>
-            )}
-          </div>
-
-          <div className="mb-4">
-            <select
-              name="role"
-              className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-              value={formData.role}
-              onChange={handleChange}
-              required
-            >
-              {roles.map((role) => (
-                <option key={role.value} value={role.value}>
-                  {role.label}
-                </option>
-              ))}
-            </select>
-            {errors.role && (
-              <small className="text-red-500">{errors.role}</small>
-            )}
-          </div>
-
-          <div className="mb-4">
-            <input
-              type="email"
-              name="email"
-              className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-              placeholder="Email"
-              value={formData.email}
-              onChange={handleChange}
-              required
-            />
-            {errors.email && (
-              <small className="text-red-500">{errors.email}</small>
-            )}
-          </div>
-
-          <div className="mb-4">
-            <div className="relative">
+      <div className="container">
+        <div className="formBox bg-white p-8 rounded-lg shadow-lg max-w-md w-full">
+          <h2 className="text-2xl font-bold text-center mb-4">Sign Up</h2>
+          <form>
+            <div className="mb-4">
               <input
-                type={type}
-                name="password"
+                type="text"
+                name="username"
                 className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-                placeholder="Password"
-                value={formData.password}
+                placeholder="Username"
+                value={formData.username}
                 onChange={handleChange}
                 required
               />
-              <span
-                className="absolute right-3 top-2 cursor-pointer"
-                onClick={hideShowPass}
-              >
-                <FontAwesomeIcon icon={isText ? faEyeSlash : faEye} />
-              </span>
+              {errors.username && (
+                <small className="text-red-500 font-semibold">
+                  {errors.username}
+                </small>
+              )}
             </div>
-            {errors.password && (
-              <small className="text-red-500">{errors.password}</small>
-            )}
-          </div>
 
-          <div className="mb-4">
-            <div className="relative">
-              <input
-                type={type}
-                name="confirmPassword"
+            <div className="mb-4">
+              <select
+                name="role"
                 className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-                placeholder="Confirm password"
-                value={formData.confirmPassword}
+                value={formData.role}
+                onChange={handleChange}
+                required
+              >
+                {roles.map((role) => (
+                  <option key={role.value} value={role.value}>
+                    {role.label}
+                  </option>
+                ))}
+              </select>
+              {errors.role && (
+                <small className="text-red-500 font-semibold">
+                  {errors.role}
+                </small>
+              )}
+            </div>
+
+            <div className="mb-4">
+              <input
+                type="email"
+                name="email"
+                className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                placeholder="Email"
+                value={formData.email}
                 onChange={handleChange}
                 required
               />
-              <span
-                className="absolute right-3 top-2 cursor-pointer"
-                onClick={hideShowPass}
-              >
-                <FontAwesomeIcon icon={isText ? faEyeSlash : faEye} />
-              </span>
+              {errors.email && (
+                <small className="text-red-500 font-semibold">
+                  {errors.email}
+                </small>
+              )}
             </div>
-            {errors.confirmPassword && (
-              <small className="text-red-500">{errors.confirmPassword}</small>
-            )}
-          </div>
 
-          <button
-            type="submit"
-            className="w-full bg-blue-500 text-white py-2 rounded-lg hover:bg-blue-600 transition duration-200"
-            onClick={handleSubmit}
-          >
-            Sign Up
-          </button>
-          <div className="text-center mt-4">
-            Already have an account?{" "}
+            <div className="mb-4">
+              <div className="relative">
+                <input
+                  type={type}
+                  name="password"
+                  className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  placeholder="Password"
+                  value={formData.password}
+                  onChange={handleChange}
+                  required
+                />
+                <span
+                  className="absolute right-3 top-2 cursor-pointer"
+                  onClick={hideShowPass}
+                >
+                  <FontAwesomeIcon icon={isText ? faEyeSlash : faEye} />
+                </span>
+              </div>
+              {errors.password && (
+                <small className="text-red-500 font-semibold">
+                  {errors.password}
+                </small>
+              )}
+            </div>
+
+            <div className="mb-4">
+              <div className="relative">
+                <input
+                  type={type}
+                  name="confirmPassword"
+                  className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  placeholder="Confirm password"
+                  value={formData.confirmPassword}
+                  onChange={handleChange}
+                  required
+                />
+                <span
+                  className="absolute right-3 top-2 cursor-pointer"
+                  onClick={hideShowPass}
+                >
+                  <FontAwesomeIcon icon={isText ? faEyeSlash : faEye} />
+                </span>
+              </div>
+              {errors.confirmPassword && (
+                <small className="text-red-500 font-semibold">
+                  {errors.confirmPassword}
+                </small>
+              )}
+              {errors.backendError && (
+                <small className="text-red-500 font-semibold">
+                  {errors.backendError}
+                </small>
+              )}
+            </div>
+
             <button
-              type="button"
-              className="text-blue-500 hover:underline"
-              onClick={handleLoginClick}
+              type="submit"
+              className="w-full bg-blue-500 text-white py-2 rounded-lg hover:bg-blue-600 transition duration-200"
+              onClick={handleSubmit}
             >
-              Login
+              Sign Up
             </button>
-          </div>
-        </form>
+            <div className="text-center mt-4">
+              Already have an account?{" "}
+              <button
+                type="button"
+                className="text-blue-500 hover:underline"
+                onClick={handleLoginClick}
+              >
+                Login
+              </button>
+            </div>
+          </form>
+        </div>
       </div>
-    </div>
     </main>
   );
 }

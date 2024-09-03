@@ -89,11 +89,11 @@ export default function Login() {
         const data = await response.json();
         console.log(data);
         if (response.ok) {
-          navigate("/");
+          navigate("/browseRecipes");
         } else {
           setErrors((prevErrors) => ({
             ...prevErrors,
-            password: data.message,
+            password: data.message || "Something went wrong",
           }));
           setShowForgotPassword(true);
           setTimeout(() => {
@@ -124,7 +124,7 @@ export default function Login() {
                   required
                 />
                 {errors.email && (
-                  <small className="text-red-500">{errors.email}</small>
+                  <small className="text-red-500 font-semibold">{errors.email}</small>
                 )}
               </div>
 
@@ -146,9 +146,9 @@ export default function Login() {
                     <FontAwesomeIcon icon={isText ? faEyeSlash : faEye} />
                   </span>
                 </div>
-                {errors.password && (
-                  <small className="text-red-500">{errors.password}</small>
-                )}
+                  {errors.password && (
+                    <small className="text-red-500 font-semibold">{errors.password}</small>
+                  )}
               </div>
               {showForgotPassword && (
                 <div className="mb-4">
