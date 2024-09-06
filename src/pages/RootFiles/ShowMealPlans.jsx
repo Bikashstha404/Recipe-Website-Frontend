@@ -1,6 +1,6 @@
 import React from "react";
-import EggBacon from "../assets/EggBacon.jpeg";
-import StrawberryShake from "../assets/StrawberrryShake.jpeg";
+import EggBacon from "../../assets/EggBacon.jpeg";
+import StrawberryShake from "../../assets/StrawberrryShake.jpeg";
 
 export default function ShowMealPlans() {
   const MealItem = ({ name, calories, image }) => {

@@ -1,5 +1,5 @@
 import React from "react";
-import burgerImage from "../assets/Burger.jpeg"; // Make sure the path to your image is correct
+import burgerImage from "../../assets/Burger.jpeg"; // Make sure the path to your image is correct
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faS,
@@ -117,20 +117,6 @@ const ShowRecipes = () => {
         </button>
       </div>
     </div>
-
-    //   {/* Recipe Details */}
-
-    //   {/* Ratings and Feedback */}
-
-    //   {/* Ingredients and Preparation */}
-
-    //     {/* Preparation */}
-
-    //   </div>
-
-    //   {/* Save Recipe Button */}
-
-    // </div>
   );
 };
 

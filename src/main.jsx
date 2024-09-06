@@ -2,17 +2,18 @@ import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import "./index.css";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
-import Root from "./pages/Root";
+import Root from "./pages/RootFiles/Root";
 import ErrorPageNotFound from "./pages/Error/Error";
 import SignUp from "./pages/auth/SignUp";
 import Login from "./pages/auth/Login";
-import BrowseRecipes from "./pages/BrowseRecipes";
+import BrowseRecipes from "./pages/RootFiles/BrowseRecipes";
 import SimpleForm from "./pages/Classes/SimpleForm";
-import AddRecipes from "./pages/AddRecipes";
-import EditProfile from "./pages/EditProfile";
-import ShowRecipes from "./pages/ShowRecipes";
-import BrowseMealPlans from "./pages/BrowseMealPlans";
-import ShowMealPlans from "./pages/ShowMealPlans";
+import AddRecipes from "./pages/RootFiles/AddRecipes";
+import EditProfile from "./pages/RootFiles/EditProfile";
+import ShowRecipes from "./pages/RootFiles/ShowRecipes";
+import BrowseMealPlans from "./pages/RootFiles/BrowseMealPlans";
+import ShowMealPlans from "./pages/RootFiles/ShowMealPlans";
+import ResetPassword from "./pages/auth/ResetPassword";
 
 const router = createBrowserRouter([
   {
@@ -56,6 +57,11 @@ const router = createBrowserRouter([
     element: <Login />,
     errorElement: <ErrorPageNotFound />,
   },
+  {
+    path: "/resetPassword",
+    element: <ResetPassword />,
+    errorElement: <ErrorPageNotFound />,
+  }
 ]);
 createRoot(document.getElementById("root")).render(
   <StrictMode>

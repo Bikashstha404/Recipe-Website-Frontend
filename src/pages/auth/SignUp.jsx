@@ -46,7 +46,7 @@ export default function SignUp() {
 
   const validate = () => {
     const newErrors = {};
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[a-zA-Z]{2,}$/;
 
     if (!formData.username) newErrors.username = "Username is required";
     if (!formData.role) newErrors.role = "Role is required";

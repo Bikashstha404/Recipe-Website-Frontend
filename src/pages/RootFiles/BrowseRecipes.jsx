@@ -1,5 +1,5 @@
 import React from "react";
-import Food from "../assets/Burger.webp";
+import Food from "../../assets/Burger.webp";
 
 export default function BrowseRecipes() {
   return (

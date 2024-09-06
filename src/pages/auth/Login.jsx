@@ -51,20 +51,37 @@ export default function Login() {
 
   const [showForgotPassword, setShowForgotPassword] = useState(false);
   const [showForgotPasswordForm, setShowForgotPasswordForm] = useState(false);
-  const [forgotPasswordEmail, setForgotPasswordEmail] = useState("");
+  const [forgotPasswordEmail,  setForgotPasswordEmail] = useState("");
 
   const handleForgotPasswordClick = () => {
     setShowForgotPasswordForm(true);
   };
 
-  const handleForgotPasswordSubmit = (e) => {
+  const handleForgotPasswordSubmit = async (e) => {
     e.preventDefault();
-    setShowForgotPasswordForm(false);
-    setForgotPasswordEmail("");
+    console.log(forgotPasswordEmail)
+    try{
+      const response = await fetch(`http://localhost:5289/api/Auth/SendResetPasswordEmail/${forgotPasswordEmail}`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        // body: JSON.stringify(forgotPasswordEmail),
+      });
+
+      const data = await response.json();
+      console.log(data)
+    }
+    catch (error){
+      console.error("There was an error posting the data!", error);
+    }
+    finally{
+      setShowForgotPasswordForm(false);
+      setForgotPasswordEmail("");
+    }
   };
 
   const handleForgotPasswordEmail = (e) => {
-    console.timeLog(e.target);
     const email = e.target.value;
     setForgotPasswordEmail(email);
   };
