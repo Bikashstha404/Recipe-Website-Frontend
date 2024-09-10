@@ -35,9 +35,14 @@ export default function AddRecipes() {
     const [hours, minutes, seconds] = recipeFormData.prepTime
       .split(":")
       .map(Number);
-    
-    if(hours== 0 && minutes == 0 && seconds == 0){
-        newErrors.prepTime = "*Invalid Time"
+    const [hoursString, minutesString, secondsString] = recipeFormData.prepTime
+      .split(":")
+
+    if (secondsString.includes("_") || minutesString.includes("_") || hoursString.includes("_")) {
+      newErrors.prepTime = "*Time must be fully filled (HH:mm:ss)";
+    }
+    if (hours == 0 && minutes == 0 && seconds == 0) {
+      newErrors.prepTime = "*Invalid Time";
     }
     if (
       hours < 0 ||
