@@ -35,10 +35,14 @@ export default function AddRecipes() {
     const [hours, minutes, seconds] = recipeFormData.prepTime
       .split(":")
       .map(Number);
-    const [hoursString, minutesString, secondsString] = recipeFormData.prepTime
-      .split(":")
+    const [hoursString, minutesString, secondsString] =
+      recipeFormData.prepTime.split(":");
 
-    if (secondsString.includes("_") || minutesString.includes("_") || hoursString.includes("_")) {
+    if (
+      secondsString.includes("_") ||
+      minutesString.includes("_") ||
+      hoursString.includes("_")
+    ) {
       newErrors.prepTime = "*Time must be fully filled (HH:mm:ss)";
     }
     if (hours == 0 && minutes == 0 && seconds == 0) {
@@ -237,6 +241,22 @@ export default function AddRecipes() {
                     {errors.prepTime}
                   </small>
                 )}
+              </div>
+              <div>
+                <label
+                  className="block text-gray-700 text-sm font-bold mb-2 ml-4"
+                  htmlFor="calories"
+                >
+                  Calories
+                </label>
+                <input
+                  name="calories"
+                  type="number"
+                  id="calories"
+                  className="ml-4 shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                  placeholder="Enter calories"
+                  onChange={handleChange}
+                />
               </div>
             </div>
             <div className="preparationBox flex justify-end space-x-4 mr-16">
