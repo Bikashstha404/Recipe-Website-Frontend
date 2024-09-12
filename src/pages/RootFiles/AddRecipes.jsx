@@ -86,12 +86,18 @@ export default function AddRecipes() {
       if (Object.keys(ingredientErrors).length > 0) {
         newErrors.ingredients[index] = ingredientErrors;
       }
-
-      console.log(newErrors);
     });
 
+    if (Object.keys(newErrors.ingredients).length === 0) {
+      delete newErrors.ingredients;
+    }
+
+    if (!recipeFormData.preparation) {
+      newErrors.preparation = "*Sub-Category is required";
+    }
+
     setErrors(newErrors);
-    // console.log("Errors: ", errors.ingredients[0].quantity);
+    console.log(newErrors)
     setTimeout(() => {
       setErrors({});
     }, 5000);
@@ -101,9 +107,6 @@ export default function AddRecipes() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    validate();
-    console.log(errors.title);
-    console.log("recipeFormData", recipeFormData);
 
     if (validate()) {
       console.log("Form submitted successfully:", recipeFormData);
@@ -282,7 +285,7 @@ export default function AddRecipes() {
             </div>
 
             <div>
-              <div className="flex justify-center items-center">
+              <div className="flex justify-center items-center mt-6">
                 <label
                   htmlFor="recipe-image"
                   className="flex flex-col justify-center items-center w-4/5 h-64 bg-gray-50 rounded-lg border border-gray-300 cursor-pointer hover:bg-gray-100"
@@ -415,7 +418,6 @@ export default function AddRecipes() {
                 className="ml-4 shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                 value={selectedSubCategory}
                 onChange={(e) => {
-                  console.log(e.target.value);
                   setSelectedSubCategory(e.target.value);
                   handleChange(e);
                 }}
@@ -508,9 +510,31 @@ export default function AddRecipes() {
             </button>
           </div>
           <div>
+            <div className="relative bottom-[45vh] left-[47vw]">
+              <label className="block text-gray-700 text-sm font-bold mb-2">
+                Preparation
+              </label>
+              <textarea
+                name="preparation"
+                id="preparation"
+                className="shadow appearance-none border rounded w-2/5 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                placeholder="Enter preparation steps"
+                rows="10"
+                value={recipeFormData.preparation}
+                onChange={handleChange}
+              ></textarea>
+            </div>
+            {errors.title && (
+              <small
+                className="text-red-500 font-semibold ml-11"
+                style={{ position: "relative", bottom: "45vh", left: "44vw" }}
+              >
+                {errors.title}
+              </small>
+            )}
             <div
-              className="preparationBox flex justify-end space-x-4 mr-16"
-              style={{ position: "relative", bottom: "41vh" }}
+              className="preparationBox flex justify-end space-x-4 mr-12"
+              style={{ position: "relative", bottom: "43vh" }}
             >
               <button
                 type="button"
@@ -520,7 +544,6 @@ export default function AddRecipes() {
               </button>
               <button
                 type="submit"
-                onClick={handleSubmit}
                 className="bg-blue-500 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
               >
                 Add
