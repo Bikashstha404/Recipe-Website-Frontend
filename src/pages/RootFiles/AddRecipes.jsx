@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faImage, faPlus } from "@fortawesome/free-solid-svg-icons";
+import { faImage, faPlus, faTrash } from "@fortawesome/free-solid-svg-icons";
 import InputMask from "react-input-mask";
 
 export default function AddRecipes() {
@@ -11,7 +11,7 @@ export default function AddRecipes() {
     calories: "",
     category: "",
     subCategory: "",
-    ingredients: [],
+    ingredients: "",
     preparation: "",
     imagePath: "",
   });
@@ -101,6 +101,9 @@ export default function AddRecipes() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    validate();
+    console.log(errors.title);
+    console.log("recipeFormData", recipeFormData);
 
     if (validate()) {
       console.log("Form submitted successfully:", recipeFormData);
@@ -201,15 +204,26 @@ export default function AddRecipes() {
   const [ingredients, setIngredients] = useState([{ quantity: "", name: "" }]);
   const addIngredient = () => {
     setIngredients([...ingredients, { quantity: "", name: "" }]);
+    setRecipeFormData({
+      ...recipeFormData,
+      ingredients: [...ingredients, { quantity: "", name: "" }],
+    });
+  };
+
+  const removeIngredient = (index) => {
+    const newIngredients = ingredients.filter((_, i) => i !== index);
+    setIngredients(newIngredients);
+    setRecipeFormData({ ...recipeFormData, ingredients: newIngredients });
   };
 
   const handleIngredientChange = (index, field, value) => {
-    const newIngredients = [...ingredients];
-    newIngredients[index] = {
-      ...newIngredients[index],
+    const updatedIngredients = [...ingredients];
+    updatedIngredients[index] = {
+      ...updatedIngredients[index],
       [field]: value,
     };
-    setIngredients(newIngredients);
+    setIngredients(updatedIngredients);
+    setRecipeFormData({ ...recipeFormData, ingredients: updatedIngredients });
   };
 
   return (
@@ -449,24 +463,39 @@ export default function AddRecipes() {
                       handleIngredientChange(index, "name", e.target.value)
                     }
                   />
+                  <div>
+                    <button
+                      type="button"
+                      onClick={() => removeIngredient(index)}
+                      className="bg-red-500 hover:bg-red-700 text-white font-bold ml-2 py-1 px-2 rounded focus:outline-none focus:shadow-outline"
+                    >
+                      <FontAwesomeIcon icon={faTrash} />
+                    </button>
+                  </div>
                 </div>
               ))}
               {ingredients.map((ingredient, index) => (
                 <div key={index}>
-                  {errors.ingredients && errors.ingredients[index].quantity && (
-                    <small className="text-red-500 font-semibold">
-                      {errors.ingredients[index].quantity}
-                    </small>
-                  )}
-                  {errors.ingredients && errors.ingredients[index].name && (
-                    <small
-                      className={`text-red-500 font-semibold ${
-                        errors.ingredients[index].quantity ? "ml-28" : "ml-[326px]"
-                      }`}
-                    >
-                      {errors.ingredients[index].name}
-                    </small>
-                  )}
+                  {errors.ingredients &&
+                    errors.ingredients[index] &&
+                    errors.ingredients[index].quantity && (
+                      <small className="text-red-500 font-semibold mb-2">
+                        {errors.ingredients[index].quantity}
+                      </small>
+                    )}
+                  {errors.ingredients &&
+                    errors.ingredients[index] &&
+                    errors.ingredients[index].name && (
+                      <small
+                        className={`text-red-500 font-semibold ${
+                          errors.ingredients[index].quantity
+                            ? "ml-28"
+                            : "ml-[326px]"
+                        }`}
+                      >
+                        {errors.ingredients[index].name}
+                      </small>
+                    )}
                 </div>
               ))}
             </div>
@@ -478,14 +507,25 @@ export default function AddRecipes() {
               <FontAwesomeIcon icon={faPlus} />
             </button>
           </div>
-          <div className="preparationBox flex justify-end space-x-4 mr-16">
-            <button
-              type="submit"
-              className="bg-blue-500 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-              onClick={handleSubmit}
+          <div>
+            <div
+              className="preparationBox flex justify-end space-x-4 mr-16"
+              style={{ position: "relative", bottom: "41vh" }}
             >
-              Add
-            </button>
+              <button
+                type="button"
+                className="bg-gray-500 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+              >
+                Discard
+              </button>
+              <button
+                type="submit"
+                onClick={handleSubmit}
+                className="bg-blue-500 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+              >
+                Add
+              </button>
+            </div>
           </div>
         </form>
       </main>
