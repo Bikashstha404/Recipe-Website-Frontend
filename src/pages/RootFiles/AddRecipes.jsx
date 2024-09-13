@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faImage, faPlus, faTrash } from "@fortawesome/free-solid-svg-icons";
 import InputMask from "react-input-mask";
+import { useNavigate } from "react-router-dom";
 
 export default function AddRecipes() {
   const [recipeFormData, setRecipeFormData] = useState({
@@ -9,11 +10,11 @@ export default function AddRecipes() {
     description: "",
     prepTime: "",
     calories: "",
-    category: "",
+    mainCategory: "",
     subCategory: "",
     ingredients: "",
     preparation: "",
-    imagePath: "",
+    imageUrl: "",
   });
 
   const [errors, setErrors] = useState({});
@@ -64,8 +65,8 @@ export default function AddRecipes() {
       newErrors.calories = "*Calories is required";
     }
 
-    if (!recipeFormData.category) {
-      newErrors.category = "*Category is required";
+    if (!recipeFormData.mainCategory) {
+      newErrors.mainCategory = "*Category is required";
     }
     if (!recipeFormData.subCategory) {
       newErrors.subCategory = "*Sub-Category is required";
@@ -97,7 +98,7 @@ export default function AddRecipes() {
     }
 
     setErrors(newErrors);
-    console.log(newErrors)
+    console.log(newErrors);
     setTimeout(() => {
       setErrors({});
     }, 5000);
@@ -105,24 +106,46 @@ export default function AddRecipes() {
     return Object.keys(newErrors).length === 0;
   };
 
+  const navigate = useNavigate();
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     if (validate()) {
       console.log("Form submitted successfully:", recipeFormData);
-      //   try {
-      //     const response = await fetch("http://localhost:5289/Recipe/AddRecipe", {
-      //       method: "POST",
-      //       headers: {
-      //         "Content-Type": "application/json",
-      //       },
-      //       body: JSON.stringify(recipeFormData),
-      //     });
-      //     const data = await response.json();
-      //     console.log(data);
-      //   } catch (error) {
-      //     console.error("There was an error posting the data!", error);
-      //   }
+      recipeFormData.calories = parseInt(recipeFormData.calories, 10);
+      recipeFormData.mainCategory = parseInt(recipeFormData.mainCategory, 10);
+      try {
+        const response = await fetch(
+          "http://localhost:5289/api/Recipe/AddRecipe",
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(recipeFormData),
+          }
+        );
+        const data = await response.json();
+        console.log(data);
+        if (response.ok) {
+          setRecipeFormData({
+            title: "",
+            description: "",
+            prepTime: "",
+            calories: "",
+            mainCategory: "",
+            subCategory: "",
+            ingredients: "",
+            preparation: "",
+            imageUrl: "",
+          });
+
+          navigate("/browseRecipes")
+          console.log("Recipe added successfully.");
+        }
+      } catch (error) {
+        console.log("Error", error);
+      }
     } else {
       console.log("Form submission failed due to validation errors.");
     }
@@ -150,7 +173,7 @@ export default function AddRecipes() {
       setImagePreview(reader.result);
       setRecipeFormData({
         ...recipeFormData,
-        imagePath: reader.result,
+        imageUrl: reader.result,
       });
     };
     if (file) {
@@ -159,32 +182,32 @@ export default function AddRecipes() {
   };
 
   const categories = [
-    { value: "Desserts", label: "Desserts" },
-    { value: "MainDishes", label: "Main Dishes" },
-    { value: "Appetizers", label: "Appetizers" },
-    { value: "Drinks", label: "Drinks" },
+    { value: 0, label: "Appetizers" },
+    { value: 1, label: "Main Dishes" },
+    { value: 2, label: "Desserts" },
+    { value: 3, label: "Drinks" },
   ];
 
   const subCategories = {
-    Desserts: [
-      { value: "Cakes", label: "Cakes" },
-      { value: "Cookies", label: "Cookies" },
-      { value: "Pies", label: "Pies" },
-      { value: "Puddings", label: "Puddings" },
+    0: [
+      { value: "Salads", label: "Salads" },
+      { value: "FingerFoods", label: "Finger Foods" },
+      { value: "Soups", label: "Soups" },
     ],
-    MainDishes: [
+    1: [
       { value: "Pasta", label: "Pasta" },
       { value: "Steak", label: "Steak" },
       { value: "Chicken", label: "Chicken" },
       { value: "Seafood", label: "Sea Food" },
       { value: "Vegetarian", label: "Vegetarian" },
     ],
-    Appetizers: [
-      { value: "Salads", label: "Salads" },
-      { value: "FingerFoods", label: "Finger Foods" },
-      { value: "Soups", label: "Soups" },
+    2: [
+      { value: "Cakes", label: "Cakes" },
+      { value: "Cookies", label: "Cookies" },
+      { value: "Pies", label: "Pies" },
+      { value: "Puddings", label: "Puddings" },
     ],
-    Drinks: [
+    3: [
       { value: "Coke", label: "Coke" },
       { value: "Sprite", label: "Sprite" },
       { value: "Coffee", label: "Coffee" },
@@ -378,13 +401,13 @@ export default function AddRecipes() {
             <div>
               <label
                 className="block text-gray-700 text-sm font-bold mb-2"
-                htmlFor="category"
+                htmlFor="mainCategory"
               >
                 Category
               </label>
               <select
-                name="category"
-                id="category"
+                name="mainCategory"
+                id="mainCategory"
                 className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                 value={selectedCategory}
                 onChange={(e) => {
@@ -392,16 +415,16 @@ export default function AddRecipes() {
                   handleChange(e);
                 }}
               >
-                <option value="">Select category</option>
-                {categories.map((category) => (
-                  <option key={category.value} value={category.value}>
-                    {category.label}
+                <option value="">Select Main Category</option>
+                {categories.map((mainCategory) => (
+                  <option key={mainCategory.value} value={mainCategory.value}>
+                    {mainCategory.label}
                   </option>
                 ))}
               </select>
-              {errors.category && (
+              {errors.mainCategory && (
                 <small className="text-red-500 font-semibold block">
-                  {errors.category}
+                  {errors.mainCategory}
                 </small>
               )}
             </div>
