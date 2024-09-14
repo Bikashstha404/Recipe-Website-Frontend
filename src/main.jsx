@@ -14,6 +14,7 @@ import ShowRecipes from "./pages/RootFiles/ShowRecipes";
 import BrowseMealPlans from "./pages/RootFiles/BrowseMealPlans";
 import ShowMealPlans from "./pages/RootFiles/ShowMealPlans";
 import ResetPassword from "./pages/auth/ResetPassword";
+import AddMealPlans from "./pages/RootFiles/AddMealPlans";
 
 const router = createBrowserRouter([
   {
@@ -44,6 +45,10 @@ const router = createBrowserRouter([
       {
         path: "/seeMealPlans",
         element: <ShowMealPlans />
+      },
+      {
+        path: "/addMealPlans",
+        element: <AddMealPlans />
       },
     ],
   },
