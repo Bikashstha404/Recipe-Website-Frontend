@@ -13,18 +13,35 @@ export default function AddMealPlans() {
     setDays((prevDays) => prevDays + 1);
   };
 
+  const handleDeleteDay = (dayToDelete) => {
+    console.log(dayToDelete);
+    // setDays((prevDays) => {prevDays.filter((day) => day !== dayToDelete)});
+    setDays((prevDays) => Math.max(prevDays - 1, 0));
+  };
+
   const groupedDays = [];
   for (let i = 0; i < days; i += 4) {
-    groupedDays.push(Array.from({ length: Math.min(4, days - i) }, (_, idx) => i + idx + 1));
+    groupedDays.push(
+      Array.from({ length: Math.min(4, days - i) }, (_, idx) => i + idx + 1)
+    );
   }
+
+  const [recipes, setRecipes] = useState("");
+  const handleBrowseRecipes = () => {
+    setRecipes("Egg and Breakfast");
+  };
 
   return (
     <>
       <main className="mx-auto pt-5 pb-8 w-full max-w-7xl">
-        <h2 className="text-4xl font-bold mb-4 ml-11 underline">Add Meal Plan</h2>
+        <h2 className="text-4xl font-bold mb-4 ml-11 underline">
+          Add Meal Plan
+        </h2>
         <div className="flex flex-col gap-2 ml-11 max-w-xs">
           <div className="flex items-center gap-2">
-            <label htmlFor="days" className="font-bold w-40">No. of Days:</label>
+            <label htmlFor="days" className="font-bold w-40">
+              No. of Days:
+            </label>
             <input
               type="number"
               id="days"
@@ -34,7 +51,9 @@ export default function AddMealPlans() {
             />
           </div>
           <div className="flex items-center gap-2">
-            <label htmlFor="title" className="font-bold w-40">Title:</label>
+            <label htmlFor="title" className="font-bold w-40">
+              Title:
+            </label>
             <input
               type="text"
               id="title"
@@ -46,27 +65,49 @@ export default function AddMealPlans() {
 
         <div className="ml-11 mt-6">
           <h2 className="text-2xl font-bold mb-4">Meal Plans</h2>
-          
+
           {groupedDays.map((daysGroup, groupIndex) => (
             <div key={groupIndex} className="flex gap-10 mb-8">
               {daysGroup.map((day) => (
-                <div key={day} className="bg-gray-200 p-4 rounded-lg shadow-lg w-64">
+                <div
+                  key={day}
+                  className="bg-gray-200 p-4 rounded-lg shadow-lg w-64"
+                >
                   <div className="flex justify-between items-center">
                     <h3 className="text-lg font-bold">Day {day}</h3>
-                    <button className="text-red-500">
+                    <button
+                      className="text-red-500"
+                      onClick={() => handleDeleteDay(day)}
+                    >
                       <FontAwesomeIcon icon={faTrash} />
                     </button>
                   </div>
                   <p className="text-gray-600 text-sm mb-2">Calories: 300</p>
                   <p className="font-semibold mb-2">Breakfast</p>
-                  <div className="flex flex-col items-center gap-2">
-                    <button className="bg-gray-400 text-gray-900 px-3 py-1 rounded w-3/4">
-                      Browse Recipes
-                    </button>
-                    <button className="bg-gray-400 text-gray-700 px-3 py-1 rounded w-3/4">
-                      Saved Recipes
-                    </button>
-                  </div>
+
+                  {recipes ? (
+                    <div className="flex justify-between">
+                      <p className="bg-gray-400 text-gray-900 px-3 py-1 rounded w-3/4">
+                        {recipes}
+                      </p>
+                      <button
+                        onClick={() => setRecipes("")}
+                        className="text-red-500"
+                      >
+                        <FontAwesomeIcon icon={faTrash} />
+                      </button>
+                    </div>
+                  ) : (
+                    <div className="flex flex-col items-center gap-2">
+                      <button className="bg-gray-400 text-gray-900 px-3 py-1 rounded w-3/4" onClick={handleBrowseRecipes}>
+                        Browse Recipes
+                      </button>
+                      <button className="bg-gray-400 text-gray-700 px-3 py-1 rounded w-3/4">
+                        Saved Recipes
+                      </button>
+                    </div>
+                  )}
+
                   <p className="font-semibold mb-2">Lunch</p>
                   <div className="flex flex-col items-center gap-2">
                     <button className="bg-gray-400 text-gray-900 px-3 py-1 rounded w-3/4">
@@ -88,16 +129,17 @@ export default function AddMealPlans() {
                 </div>
               ))}
 
-              {groupIndex === groupedDays.length - 1 && daysGroup.length < 4 && (
-                <div className="flex items-center justify-center">
-                  <button
-                    className="bg-gray-200 rounded-lg p-4 hover:bg-gray-300"
-                    onClick={handleAddDay}
-                  >
-                    <FontAwesomeIcon icon={faPlus} />
-                  </button>
-                </div>
-              )}
+              {groupIndex === groupedDays.length - 1 &&
+                daysGroup.length < 4 && (
+                  <div className="flex items-center justify-center">
+                    <button
+                      className="bg-gray-200 rounded-lg p-4 hover:bg-gray-300"
+                      onClick={handleAddDay}
+                    >
+                      <FontAwesomeIcon icon={faPlus} />
+                    </button>
+                  </div>
+                )}
             </div>
           ))}
 
