@@ -3,6 +3,7 @@ import Food from "../../assets/Burger.webp";
 import axios from "axios";
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import api from "./../../api"
 
 export default function BrowseRecipes() {
   const [recipeData, setRecipeData] = useState([]);
@@ -11,18 +12,33 @@ export default function BrowseRecipes() {
   const handleSeeRecipe = (index) => {
     // console.log(recipeData[index]);
     const selectedRecipe = recipeData[index];
-    navigate("/showRecipes", { state: { recipe: selectedRecipe } })
+    navigate("/showRecipes", { state: { recipe: selectedRecipe } });
   };
+
+  // useEffect(() => {
+  //   axios
+  //     .get("http://localhost:5289/api/Recipe/GetAllRecipes")
+  //     .then((apiData) => {
+  //       setRecipeData(apiData.data);
+  //       // console.log(apiData.data);
+  //     })
+  //     .catch((error) => {
+  //       console.log(error);
+  //     });
+  // }, []);
+
   useEffect(() => {
-    axios
-      .get("http://localhost:5289/api/Recipe/GetAllRecipes")
-      .then((apiData) => {
-        setRecipeData(apiData.data);
-        // console.log(apiData.data);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+    const fetchRecipes = async () => {
+      try {
+        const response = await api.get("/GetAllRecipes");
+        // console.log("Response: ", response)
+        setRecipeData(response.data);
+      } catch (error) {
+        console.log("Error fetching recipes:", error);
+      }
+    };
+
+    fetchRecipes();
   }, []);
   return (
     <main className="mx-auto pt-5 pb-8 w-full max-w-7xl">

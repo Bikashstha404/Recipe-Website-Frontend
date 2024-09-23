@@ -23,6 +23,10 @@ const router = createBrowserRouter([
     errorElement: <ErrorPageNotFound />,
     children: [
       {
+        index: true,
+        element: <BrowseRecipes/>,
+      },
+      {
         path: "/browseRecipes",
         element: <BrowseRecipes />,
       },

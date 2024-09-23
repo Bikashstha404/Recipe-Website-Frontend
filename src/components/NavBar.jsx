@@ -5,6 +5,7 @@ import Profile from "../assets/Profile.jpg";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCaretDown } from "@fortawesome/free-solid-svg-icons";
 import { useNavigate } from "react-router-dom";
+import { jwtDecode } from "jwt-decode";
 
 export default function NavBar() {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
@@ -14,6 +15,16 @@ export default function NavBar() {
   };
 
   const navigate = useNavigate();
+  const token = localStorage.getItem("accessToken");
+  let role;
+  if (token) {
+    const decodedToken = jwtDecode(token);
+    role =
+      decodedToken[
+        "http://schemas.microsoft.com/ws/2008/06/identity/claims/role"
+      ];
+      console.log("Role: ", role)
+  }
 
   const handleBrowseRecipes = () => {
     navigate("/browseRecipes");
@@ -23,27 +34,28 @@ export default function NavBar() {
     navigate("/addRecipes");
   };
   const handleLogout = () => {
+    localStorage.clear();
     navigate("/login");
   };
 
-  const handleEdit = () =>{
+  const handleEdit = () => {
     navigate("/editProfile");
-  }
+  };
 
   const handleShowRecipe = () => {
-    navigate("/showRecipes")
-  }
+    navigate("/showRecipes");
+  };
 
-  const handleBrowseMealPlans = () =>{
-    navigate("/browseMealPlans")
-  }
+  const handleBrowseMealPlans = () => {
+    navigate("/browseMealPlans");
+  };
 
-  const handleSeeMealPlans =() =>{
-    navigate("/seeMealPlans")
-  }
-  const AddMealPlans =() =>{
-    navigate("/addMealPlans")
-  }
+  const handleSeeMealPlans = () => {
+    navigate("/seeMealPlans");
+  };
+  const handleAddMealPlans = () => {
+    navigate("/addMealPlans");
+  };
   return (
     <>
       <aside className="w-60 bg-gradient-to-b from-gray-800 to-gray-700 text-white flex flex-col items-center py-6  shadow-xl">
@@ -76,24 +88,42 @@ export default function NavBar() {
           >
             Browse Recipes
           </button>
-          <button className="bg-gray-700 hover:bg-gray-600 py-3 w-full text-left pl-6" onClick={handleBrowseMealPlans}>
-            Browse Meal Plans
-          </button>
           <button
             className="bg-gray-700 hover:bg-gray-600 py-3 w-full text-left pl-6"
-            onClick={handleAddRecipes}
+            onClick={handleBrowseMealPlans}
           >
-            Add Recipes
+            Browse Meal Plans
           </button>
-          <button className="bg-gray-700 hover:bg-gray-600 py-3 w-full text-left pl-6" onClick={handleShowRecipe}>
+          {role === "Admin" || role === "Cook" ? (
+            <button
+              className="bg-gray-700 hover:bg-gray-600 py-3 w-full text-left pl-6"
+              onClick={handleAddRecipes}
+            >
+              Add Recipes
+            </button>
+          ) : null}
+
+          {role === "Admin" || role === "Planner" ? (
+            <button
+              className="bg-gray-700 hover:bg-gray-600 py-3 w-full text-left pl-6"
+              onClick={handleAddMealPlans}
+            >
+              Add Meal Plans
+            </button>
+          ) : null}
+          {/* <button
+            className="bg-gray-700 hover:bg-gray-600 py-3 w-full text-left pl-6"
+            onClick={handleShowRecipe}
+          >
             Show Recipes
-          </button>
-          <button className="bg-gray-700 hover:bg-gray-600 py-3 w-full text-left pl-6" onClick={handleSeeMealPlans}>
+          </button> */}
+          <button
+            className="bg-gray-700 hover:bg-gray-600 py-3 w-full text-left pl-6"
+            onClick={handleSeeMealPlans}
+          >
             See Meal Plans
           </button>
-          <button className="bg-gray-700 hover:bg-gray-600 py-3 w-full text-left pl-6" onClick={AddMealPlans}>
-          Add Meal Plans
-          </button>
+
           <div className="relative w-full">
             <button
               className="bg-gray-700 hover:bg-gray-600 py-3 w-full text-left pl-6"
@@ -104,7 +134,10 @@ export default function NavBar() {
             </button>
             {isDropdownOpen && (
               <div className="flex flex-col w-full bg-gray-700">
-                <button className="w-full text-left bg-teal-700 hover:bg-white-600 py-2 pl-10" onClick={handleEdit}>
+                <button
+                  className="w-full text-left bg-teal-700 hover:bg-white-600 py-2 pl-10"
+                  onClick={handleEdit}
+                >
                   Edit Profile
                 </button>
                 <button

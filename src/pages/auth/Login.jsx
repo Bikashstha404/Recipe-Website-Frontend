@@ -4,6 +4,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 import { faTimes } from "@fortawesome/free-solid-svg-icons";
 import "./auth.css";
+import { jwtDecode } from "jwt-decode";
 
 export default function Login() {
   const [formData, setFormData] = useState({
@@ -51,7 +52,7 @@ export default function Login() {
 
   const [showForgotPassword, setShowForgotPassword] = useState(false);
   const [showForgotPasswordForm, setShowForgotPasswordForm] = useState(false);
-  const [forgotPasswordEmail,  setForgotPasswordEmail] = useState("");
+  const [forgotPasswordEmail, setForgotPasswordEmail] = useState("");
 
   const handleForgotPasswordClick = () => {
     setShowForgotPasswordForm(true);
@@ -59,23 +60,24 @@ export default function Login() {
 
   const handleForgotPasswordSubmit = async (e) => {
     e.preventDefault();
-    console.log(forgotPasswordEmail)
-    try{
-      const response = await fetch(`http://localhost:5289/api/Auth/SendResetPasswordEmail/${forgotPasswordEmail}`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        // body: JSON.stringify(forgotPasswordEmail),
-      });
+    console.log(forgotPasswordEmail);
+    try {
+      const response = await fetch(
+        `http://localhost:5289/api/Auth/SendResetPasswordEmail/${forgotPasswordEmail}`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          // body: JSON.stringify(forgotPasswordEmail),
+        }
+      );
 
       const data = await response.json();
-      console.log(data)
-    }
-    catch (error){
+      console.log(data);
+    } catch (error) {
       console.error("There was an error posting the data!", error);
-    }
-    finally{
+    } finally {
       setShowForgotPasswordForm(false);
       setForgotPasswordEmail("");
     }
@@ -104,8 +106,10 @@ export default function Login() {
         });
 
         const data = await response.json();
-        console.log(data);
+        // console.log("Data: ", data)
         if (response.ok) {
+          localStorage.setItem("accessToken", data.accessToken);
+          localStorage.setItem("refreshToken", data.refreshToken);
           navigate("/browseRecipes");
         } else {
           setErrors((prevErrors) => ({
@@ -141,7 +145,9 @@ export default function Login() {
                   required
                 />
                 {errors.email && (
-                  <small className="text-red-500 font-semibold">{errors.email}</small>
+                  <small className="text-red-500 font-semibold">
+                    {errors.email}
+                  </small>
                 )}
               </div>
 
@@ -163,9 +169,11 @@ export default function Login() {
                     <FontAwesomeIcon icon={isText ? faEyeSlash : faEye} />
                   </span>
                 </div>
-                  {errors.password && (
-                    <small className="text-red-500 font-semibold">{errors.password}</small>
-                  )}
+                {errors.password && (
+                  <small className="text-red-500 font-semibold">
+                    {errors.password}
+                  </small>
+                )}
               </div>
               {showForgotPassword && (
                 <div className="mb-4">
